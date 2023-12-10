@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str1[50], str2[50];
+    printf("Enter the first string: ");
+    fgets(str1, sizeof(str1), stdin);
+    str1[strcspn(str1, "\n")] = '\0'; 
+
+    printf("Enter the second string: ");
+    fgets(str2, sizeof(str2), stdin);
+    str2[strcspn(str2, "\n")] = '\0'; 
+    strcat(str1, str2);
+    printf("Concatenated string: %s\n", str1);
+
+    printf("Length of the concatenated string: %zu\n", strlen(str1));
+    char copyStr[50];
+    strcpy(copyStr, str1);
+    printf("Copied string: %s\n", copyStr);
+    int cmpResult = strcmp(str1, copyStr);
+    if (cmpResult == 0) {
+        printf("The concatenated string and copied string are equal.\n");
+    } else {
+        printf("The concatenated string and copied string are not equal.\n");
+    }
+    char substring[20];
+    printf("Enter a substring to search: ");
+    fgets(substring, sizeof(substring), stdin);
+    substring[strcspn(substring, "\n")] = '\0'; 
+
+    char *subStrPosition = strstr(str1, substring);
+    if (subStrPosition != NULL) {
+        printf("Substring found at position: %ld\n", subStrPosition - str1);
+    } else {
+        printf("Substring not found.\n");
+    }
+
+    return 0;
+}
