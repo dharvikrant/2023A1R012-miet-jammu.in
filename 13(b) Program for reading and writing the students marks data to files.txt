@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+// Structure to represent a student
+struct Student {
+    char name[50];
+    int rollNumber;
+    float marks;
+};
+
+// Function to write student data to a file
+void writeToFile(FILE *file, struct Student *student) {
+    fprintf(file, "%s %d %.2f\n", student->name, student->rollNumber, student->marks);
+}
+
+// Function to read student data from a file
+void readFromFile(FILE *file, struct Student *student) {
+    fscanf(file, "%s %d %f", student->name, &student->rollNumber, &student->marks);
+}
+
+int main() {
+    FILE *file;
+    struct Student student;
+
+    // Open the file for writing
+    file = fopen("student_data.txt", "w");
+
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return 1; // Exit with an error code
+    }
+
+    // Input student data
+    printf("Enter student name: ");
+    scanf("%s", student.name);
+
+    printf("Enter roll number: ");
+    scanf("%d", &student.rollNumber);
+
+    printf("Enter marks: ");
+    scanf("%f", &student.marks);
+
+    // Write student data to the file
+    writeToFile(file, &student);
+
+    // Close the file
+    fclose(file);
+
+    // Open the file for reading
+    file = fopen("student_data.txt", "r");
+
+    if (file == NULL) {
+        printf("Error opening file for reading.\n");
+        return 1; // Exit with an error code
+    }
+
+    // Read and display student data from the file
+    readFromFile(file, &student);
+
+    printf("\nStudent Data Read from File:\n");
+    printf("Name: %s\n", student.name);
+    printf("Roll Number: %d\n", student.rollNumber);
+    printf("Marks: %.2f\n", student.marks);
+
+    // Close the file
+    fclose(file);
+
+    return 0; // Exit successfully
+}
